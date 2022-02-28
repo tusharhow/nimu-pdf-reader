@@ -13,6 +13,7 @@ class DrawerComponent extends StatelessWidget {
   Widget build(BuildContext context) {
     return Drawer(
       backgroundColor: Colors.white,
+    
       child: Column(
         children: <Widget>[
           SizedBox(
@@ -29,11 +30,17 @@ class DrawerComponent extends StatelessWidget {
           const Divider(
             height: 1,
           ),
+          SizedBox(
+            height: MediaQuery.of(context).size.height * 0.03,
+          ),
           ListTile(
-            leading: const Icon(Icons.home),
+            leading: const Icon(
+              Icons.home,
+              size: 23,
+            ),
             title: const Text('Home',
                 style: TextStyle(
-                    fontSize: 16,
+                    fontSize: 15,
                     fontWeight: FontWeight.bold,
                     color: Colors.black)),
             onTap: () {
@@ -41,10 +48,13 @@ class DrawerComponent extends StatelessWidget {
             },
           ),
           ListTile(
-            leading: const Icon(Icons.share),
+            leading: const Icon(
+              Icons.share,
+              size: 23,
+            ),
             title: const Text('Share App',
                 style: TextStyle(
-                    fontSize: 16,
+                    fontSize: 15,
                     fontWeight: FontWeight.bold,
                     color: Colors.black)),
             onTap: () {
@@ -53,10 +63,13 @@ class DrawerComponent extends StatelessWidget {
             },
           ),
           ListTile(
-            leading: const Icon(Icons.info),
+            leading: const Icon(
+              Icons.info,
+              size: 23,
+            ),
             title: const Text('About Us',
                 style: TextStyle(
-                    fontSize: 16,
+                    fontSize: 15,
                     fontWeight: FontWeight.bold,
                     color: Colors.black)),
             onTap: () {
@@ -65,10 +78,13 @@ class DrawerComponent extends StatelessWidget {
             },
           ),
           ListTile(
-            leading: const Icon(Icons.exit_to_app),
+            leading: const Icon(
+              Icons.exit_to_app,
+              size: 23,
+            ),
             title: const Text('Exit App',
                 style: TextStyle(
-                    fontSize: 16,
+                    fontSize: 15,
                     fontWeight: FontWeight.bold,
                     color: Colors.black)),
             onTap: () {

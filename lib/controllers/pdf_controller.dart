@@ -39,4 +39,12 @@ class PdfController extends ChangeNotifier {
 
     notifyListeners();
   }
+
+  // remove the file from the device
+  removeFile(context) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.remove('filePath');
+    file = null;
+    notifyListeners();
+  }
 }

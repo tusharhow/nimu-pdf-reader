@@ -30,35 +30,49 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   void didChangeDependencies() {
     pdfViewerController = PdfViewerController();
-
     getSharedFile();
     super.didChangeDependencies();
   }
 
   final TextEditingController _pageController = TextEditingController();
   final GlobalKey<SfPdfViewerState> _scaffoldKey = GlobalKey();
+  final GlobalKey<ScaffoldState> _formKey = GlobalKey();
 
   @override
   Widget build(BuildContext context) {
-    final value = Provider.of<PdfController>(context);
+    final getVal = Provider.of<PdfController>(context);
 
     return Scaffold(
       drawer: const DrawerComponent(),
+      key: _formKey,
       appBar: AppBar(
         title: const Text('Nimu PDF Viewer'),
         backgroundColor: Colors.redAccent,
         elevation: 0,
-        actions: [
-          IconButton(
-            onPressed: () {
-              _scaffoldKey.currentState!.openBookmarkView();
-            },
-            icon: const Icon(
-              Icons.bookmark,
-              color: Colors.white,
-              size: 30,
-            ),
+        leading: GestureDetector(
+          onTap: () {
+            _formKey.currentState!.openDrawer();
+          },
+          child: Image.asset(
+            'logo/menu.png',
+            height: 30,
+            width: 30,
+            color: Colors.white,
           ),
+        ),
+        actions: [
+          getVal == null
+              ? Container()
+              : IconButton(
+                  onPressed: () {
+                    _scaffoldKey.currentState!.openBookmarkView();
+                  },
+                  icon: const Icon(
+                    Icons.bookmark,
+                    color: Colors.white,
+                    size: 30,
+                  ),
+                ),
         ],
       ),
       body: Row(
@@ -186,6 +200,19 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
           SpeedDialChild(
             child: const Icon(
+              Icons.delete,
+              size: 30,
+              color: Colors.white,
+            ),
+            backgroundColor: Colors.redAccent.shade400,
+            labelStyle: const TextStyle(fontSize: 16),
+            label: 'Remove File',
+            onTap: () {
+              getVal.removeFile(context);
+            },
+          ),
+          SpeedDialChild(
+            child: const Icon(
               Icons.find_in_page,
               size: 30,
               color: Colors.white,
@@ -214,7 +241,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         ),
                         ElevatedButton(
                           onPressed: () {
-                            value.jumpTo(
+                            getVal.jumpTo(
                                 context,
                                 int.parse(_pageController.text),
                                 pdfViewerController);
@@ -238,7 +265,7 @@ class _MyHomePageState extends State<MyHomePage> {
             labelStyle: const TextStyle(fontSize: 16),
             label: 'Open Another File',
             onTap: () {
-              value.filePicker(context);
+              getVal.filePicker(context);
             },
           ),
         ],
