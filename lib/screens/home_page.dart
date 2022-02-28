@@ -5,6 +5,9 @@ import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
 import '../components/drawer_component.dart';
+import '../components/floating_widget.dart';
+import '../components/no_pdf_widget.dart';
+import '../components/pdf_view_widget.dart';
 import '../controllers/pdf_controller.dart';
 
 class MyHomePage extends StatefulWidget {
@@ -46,7 +49,12 @@ class _MyHomePageState extends State<MyHomePage> {
       drawer: const DrawerComponent(),
       key: _formKey,
       appBar: AppBar(
-        title: const Text('Nimu PDF Viewer'),
+        title: const Text(
+          'Nimu PDF Viewer',
+          style: TextStyle(
+            fontSize: 20,
+          ),
+        ),
         backgroundColor: Colors.redAccent,
         elevation: 0,
         leading: GestureDetector(
@@ -61,7 +69,7 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
         ),
         actions: [
-          getVal == null
+          getFile == null
               ? Container()
               : IconButton(
                   onPressed: () {
@@ -82,194 +90,24 @@ class _MyHomePageState extends State<MyHomePage> {
           Consumer<PdfController>(builder: (context, value, _) {
             return getFile == null
                 ? Consumer<PdfController>(builder: (context, val, _) {
-                    return Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        const Text(
-                          'No PDF file selected',
-                          style: TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        const SizedBox(height: 30),
-                        const Text(
-                          'Tap on the button below to select a PDF file',
-                          style: TextStyle(
-                            fontSize: 14,
-                          ),
-                        ),
-                        const SizedBox(
-                          height: 30,
-                        ),
-                        GestureDetector(
-                          onTap: () {
-                            value.filePicker(context);
-                          },
-                          child: Center(
-                            child: Container(
-                              height: 52,
-                              width: MediaQuery.of(context).size.width / 1.4,
-                              decoration: BoxDecoration(
-                                color: Colors.redAccent,
-                                borderRadius: BorderRadius.circular(8),
-                                boxShadow: const [
-                                  BoxShadow(
-                                    color: Colors.black26,
-                                    blurRadius: 10,
-                                    offset: Offset(0, 5),
-                                  ),
-                                ],
-                              ),
-                              child: const Center(
-                                  child: Text(
-                                'Pick File from Storage',
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 16,
-                                ),
-                              )),
-                            ),
-                          ),
-                        ),
-                      ],
+                    return NoPDFWidget(
+                      value: value,
                     );
                   })
-                : Expanded(
-                    child: SfPdfViewer.file(
-                      File(getFile),
-                      key: _scaffoldKey,
-                      controller: pdfViewerController,
-                      onPageChanged: (page) {},
-                      onTextSelectionChanged: (text) {},
-                      currentSearchTextHighlightColor: Colors.red,
-                      initialZoomLevel: 1.30,
-                      enableDocumentLinkAnnotation: true,
-                      canShowScrollStatus: true,
-                      enableDoubleTapZooming: true,
-                      canShowPaginationDialog: true,
-                      canShowScrollHead: true,
-                      enableTextSelection: true,
-                      interactionMode: PdfInteractionMode.selection,
-                      onDocumentLoadFailed: (exception) {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(
-                                content: Text('Failed to load file')));
-                      },
-                      onDocumentLoaded: (document) {
-                        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                            content: Text(
-                                'File Loaded Successfully, Please wait...')));
-                      },
-                    ),
-                  );
+                : PDFViewWidget(
+                    scaffoldKey: _scaffoldKey,
+                    pdfViewerController: pdfViewerController,
+                    getFile: getFile);
           }),
         ],
       ),
-      floatingActionButton: SpeedDial(
-        animatedIcon: AnimatedIcons.menu_close,
-        backgroundColor: Colors.teal,
-        elevation: 2,
-        children: [
-          SpeedDialChild(
-            child: const Icon(
-              Icons.zoom_in,
-              size: 30,
-              color: Colors.white,
+      floatingActionButton: getFile == null
+          ? null
+          : FloatingButtonWidget(
+              pdfViewerController: pdfViewerController,
+              getVal: getVal,
+              pageController: _pageController,
             ),
-            backgroundColor: Colors.redAccent.shade400,
-            labelStyle: const TextStyle(fontSize: 16),
-            label: 'Zoom In',
-            onTap: () {
-              pdfViewerController!.zoomLevel = 1.30;
-            },
-          ),
-          SpeedDialChild(
-            child: const Icon(
-              Icons.zoom_out,
-              size: 30,
-              color: Colors.white,
-            ),
-            backgroundColor: Colors.redAccent.shade400,
-            label: 'Zoom Out',
-            labelStyle: const TextStyle(fontSize: 16),
-            onTap: () {
-              pdfViewerController!.zoomLevel = 0.70;
-            },
-          ),
-          SpeedDialChild(
-            child: const Icon(
-              Icons.delete,
-              size: 30,
-              color: Colors.white,
-            ),
-            backgroundColor: Colors.redAccent.shade400,
-            labelStyle: const TextStyle(fontSize: 16),
-            label: 'Remove File',
-            onTap: () {
-              getVal.removeFile(context);
-            },
-          ),
-          SpeedDialChild(
-            child: const Icon(
-              Icons.find_in_page,
-              size: 30,
-              color: Colors.white,
-            ),
-            backgroundColor: Colors.redAccent.shade400,
-            labelStyle: const TextStyle(fontSize: 16),
-            label: 'Jump To Page',
-            onTap: () {
-              showDialog(
-                context: context,
-                builder: (context) => AlertDialog(
-                  title: const Text('Jump to page'),
-                  content: SizedBox(
-                    height: MediaQuery.of(context).size.height / 6.5,
-                    child: Column(
-                      children: [
-                        TextFormField(
-                          controller: _pageController,
-                          decoration: const InputDecoration(
-                            hintText: 'Enter page number',
-                          ),
-                          keyboardType: TextInputType.number,
-                        ),
-                        const SizedBox(
-                          height: 15,
-                        ),
-                        ElevatedButton(
-                          onPressed: () {
-                            getVal.jumpTo(
-                                context,
-                                int.parse(_pageController.text),
-                                pdfViewerController);
-                          },
-                          child: const Text('Jump To'),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              );
-            },
-          ),
-          SpeedDialChild(
-            child: const Icon(
-              Icons.open_in_browser,
-              size: 30,
-              color: Colors.white,
-            ),
-            backgroundColor: Colors.redAccent.shade400,
-            labelStyle: const TextStyle(fontSize: 16),
-            label: 'Open Another File',
-            onTap: () {
-              getVal.filePicker(context);
-            },
-          ),
-        ],
-      ),
     );
   }
 }
