@@ -14,6 +14,7 @@ class PDFViewWidget extends StatelessWidget {
 
   final GlobalKey<SfPdfViewerState> _scaffoldKey;
   final PdfViewerController? pdfViewerController;
+  // ignore: prefer_typing_uninitialized_variables
   final getFile;
 
   @override

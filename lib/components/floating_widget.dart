@@ -27,7 +27,7 @@ class FloatingButtonWidget extends StatelessWidget {
         SpeedDialChild(
           child: const Icon(
             Icons.zoom_in,
-            size: 30,
+            size: 25,
             color: Colors.white,
           ),
           backgroundColor: Colors.redAccent.shade400,
@@ -40,7 +40,7 @@ class FloatingButtonWidget extends StatelessWidget {
         SpeedDialChild(
           child: const Icon(
             Icons.zoom_out,
-            size: 30,
+            size: 25,
             color: Colors.white,
           ),
           backgroundColor: Colors.redAccent.shade400,
@@ -53,7 +53,7 @@ class FloatingButtonWidget extends StatelessWidget {
         SpeedDialChild(
           child: const Icon(
             Icons.delete,
-            size: 30,
+            size: 25,
             color: Colors.white,
           ),
           backgroundColor: Colors.redAccent.shade400,
@@ -66,7 +66,7 @@ class FloatingButtonWidget extends StatelessWidget {
         SpeedDialChild(
           child: const Icon(
             Icons.find_in_page,
-            size: 30,
+            size: 25,
             color: Colors.white,
           ),
           backgroundColor: Colors.redAccent.shade400,
@@ -110,7 +110,7 @@ class FloatingButtonWidget extends StatelessWidget {
         SpeedDialChild(
           child: const Icon(
             Icons.open_in_browser,
-            size: 30,
+            size: 25,
             color: Colors.white,
           ),
           backgroundColor: Colors.redAccent.shade400,

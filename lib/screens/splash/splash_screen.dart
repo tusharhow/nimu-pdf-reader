@@ -16,7 +16,7 @@ class _SplashScreen1State extends State<SplashScreenFirst> {
   @override
   void initState() {
     super.initState();
-    Timer(const Duration(seconds: 2), () {
+    Timer(const Duration(seconds: 3), () {
       Navigator.pushAndRemoveUntil(
           context,
           MaterialPageRoute(builder: (context) => const MyHomePage()),
@@ -61,11 +61,10 @@ class SplashState extends State<Splash> with AfterLayoutMixin<Splash> {
     bool _seen = (prefs.getBool('seen') ?? false);
 
     if (_seen) {
-      Navigator.of(context).pushReplacement(MaterialPageRoute(
-          builder: (context) =>
-              _seen == false ? const SplashScreenFirst() : const MyHomePage()));
+      Navigator.of(context).pushReplacement(
+          MaterialPageRoute(builder: (context) => const MyHomePage()));
     } else {
-      await prefs.setBool('seen', true);
+      prefs.setBool('seen', true);
       Navigator.of(context).pushReplacement(
           MaterialPageRoute(builder: (context) => const SplashScreenFirst()));
     }
