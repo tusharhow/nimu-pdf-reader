@@ -23,9 +23,13 @@ class AboutUs extends StatelessWidget {
 
     return Scaffold(
       backgroundColor: Colors.teal,
+      appBar: AppBar(
+        elevation: 0,
+        backgroundColor: Colors.teal,
+      ),
       body: Column(
         children: [
-          SizedBox(height: MediaQuery.of(context).size.height * 0.06),
+          SizedBox(height: MediaQuery.of(context).size.height * 0.00),
           const Center(
             child: CircleAvatar(
               radius: 65,

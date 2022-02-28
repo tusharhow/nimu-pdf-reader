@@ -1,4 +1,4 @@
-package com.example.nimu_pdf_reader
+package com.nimu.pdfreader
 
 import io.flutter.embedding.android.FlutterActivity
 

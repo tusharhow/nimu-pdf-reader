@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:nimu_pdf_reader/controllers/pdf_controller.dart';
 import 'package:provider/provider.dart';
-import 'screens/home_page.dart';
+import 'screens/splash/splash_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -23,7 +23,7 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),
-        home: const MyHomePage(),
+        home: const Splash(),
       ),
     );
   }

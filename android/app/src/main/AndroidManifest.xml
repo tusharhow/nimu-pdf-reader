@@ -1,9 +1,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.nimu_pdf_reader">
+    package="com.nimu.pdfreader">
    <application
-        android:label="nimu_pdf_reader"
+        android:label="Nimu PDF Reader"
         android:name="${applicationName}"
-        android:icon="@mipmap/ic_launcher">
+        android:icon="@mipmap/logo">
         <activity
             android:name=".MainActivity"
             android:exported="true"
@@ -31,4 +31,7 @@
             android:name="flutterEmbedding"
             android:value="2" />
     </application>
+     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 </manifest>

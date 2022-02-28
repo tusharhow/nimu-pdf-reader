@@ -7,6 +7,7 @@ import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
 class PdfController extends ChangeNotifier {
   File? file;
 
+  // ignore: prefer_typing_uninitialized_variables
   var mainFile;
 
   filePicker(context) async {
